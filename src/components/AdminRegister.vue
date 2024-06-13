@@ -48,6 +48,7 @@ import axios from 'axios';
     methods: {
       async register() {
         // Validation
+        console.log("entered");
         this.nameError = '';
         this.emailError = '';
       this.passwordError = '';

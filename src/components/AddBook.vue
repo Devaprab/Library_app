@@ -54,13 +54,15 @@
           </div>
           <v-dialog v-model="dialogSuccess" width="400px">
 <v-card class="mx-auto rounded-5" elevation="2" max-width="400" width="100%" height="250">
-    <v-card-title class="green-header mx-auto"><v-icon
-      class="mb-2 mt-4"
+  <v-card-title class="green-header bg-green py-3"></v-card-title>
+    <v-card-text class="text-success text-center">
+      <v-icon
+      class="mb-2 mt-2"
       color="success"
       icon="mdi-check-circle"
       size="100"
-    ></v-icon></v-card-title>
-    <v-card-text class="text-success text-center"><h2>Successfully Added</h2></v-card-text>
+    ></v-icon>
+      <h3>Successfully Added</h3></v-card-text>
 </v-card>
     
 </v-dialog>
@@ -82,7 +84,7 @@
             rack: '',
             quantity: '',
             coverImg:'',
-            dialogSuccess: false
+            dialogSuccess: true
           };
         },
         

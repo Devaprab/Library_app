@@ -50,14 +50,15 @@
       </v-dialog>
 <v-dialog
 v-model="dialog2">
-<v-card class="mx-auto rounded-5" elevation="2" max-width="400" width="100%" height="350">
-    <v-card-title class="green-header mx-auto"><v-icon
-      class="mb-2 mt-4"
+<v-card class="mx-auto rounded-5" elevation="2" max-width="400" width="100%" height="300">
+    <v-card-title class="green-header bg-green py-3"></v-card-title>
+    <v-card-text class="text-success text-center">
+      <v-icon
+      class="mb-2 mt-2"
       color="success"
       icon="mdi-check-circle"
       size="100"
-    ></v-icon></v-card-title>
-    <v-card-text class="text-success text-center">
+    ></v-icon>
       <h2>Successfully Registered</h2>
       <p>Get the app from Play Store</p>
   </v-card-text>
@@ -84,7 +85,7 @@ export default {
       subError: '',
       passwordError: '',
       dialog: false,
-      dialog2: false,
+      dialog2: true,
     };
   },
   methods: {
@@ -143,6 +144,7 @@ export default {
           console.log(response.data)
           this.dialog2 =true; 
            this.dialog = !this.dialog;
+           this.clearForm();
           // alert('Successfully registered')
           // this.$router.push('/login');
         }
@@ -151,7 +153,15 @@ export default {
 console.error(error)
       }
   }
-}
+},
+clearForm() {
+      this.name = '';
+      this.email = '';
+      this.std = '';
+      this.div = '';
+      this.sub = '';
+      this.password = '';
+    },
   }
 };
 </script>

@@ -12,7 +12,7 @@
       <router-link to="/booklist" class="me-3 py-2 link-body-emphasis text-decoration-none fs-5">Books</router-link>
       <router-link to="/login" class="me-3 py-2 link-body-emphasis text-decoration-none fs-5" href="#">Admin</router-link>
       <!-- <a class="me-3 py-2 link-body-emphasis text-decoration-none fs-5" href="#">Contact Us</a> -->
-      <SignupBtn/>
+      <div class="d-flex align-items-center"><SignupBtn/></div>
     </nav>
   </div>
   <v-sheet style="margin-top: 100px; background-image: linear-gradient(0deg, rgba(192, 241, 66,0.2) 0%, rgba(192, 241, 66,0.2) 16.667%,rgba(73, 212, 31,0.2) 16.667%, rgba(73, 212, 31,0.2) 33.334%,rgba(113, 222, 43,0.2) 33.334%, rgba(113, 222, 43,0.2) 50.001%,rgba(232, 251, 78,0.2) 50.001%, rgba(232, 251, 78,0.2) 66.668%,rgba(152, 231, 54,0.2) 66.668%, rgba(152, 231, 54,0.2) 83.335%,rgba(33, 202, 19,0.2) 83.335%, rgba(33, 202, 19,0.2) 100.002%),linear-gradient(135deg, rgba(192, 241, 66,0.2) 0%, rgba(192, 241, 66,0.2) 16.667%,rgba(73, 212, 31,0.2) 16.667%, rgba(73, 212, 31,0.2) 33.334%,rgba(113, 222, 43,0.2) 33.334%, rgba(113, 222, 43,0.2) 50.001%,rgba(232, 251, 78,0.2) 50.001%, rgba(232, 251, 78,0.2) 66.668%,rgba(152, 231, 54,0.2) 66.668%, rgba(152, 231, 54,0.2) 83.335%,rgba(33, 202, 19,0.2) 83.335%, rgba(33, 202, 19,0.2) 100.002%),linear-gradient(90deg, rgba(192, 241, 66,0.2) 0%, rgba(192, 241, 66,0.2) 16.667%,rgba(73, 212, 31,0.2) 16.667%, rgba(73, 212, 31,0.2) 33.334%,rgba(113, 222, 43,0.2) 33.334%, rgba(113, 222, 43,0.2) 50.001%,rgba(232, 251, 78,0.2) 50.001%, rgba(232, 251, 78,0.2) 66.668%,rgba(152, 231, 54,0.2) 66.668%, rgba(152, 231, 54,0.2) 83.335%,rgba(33, 202, 19,0.2) 83.335%, rgba(33, 202, 19,0.2) 100.002%),linear-gradient(90deg, rgb(238, 207, 232),rgb(127, 195, 255));" elevation="24" height="auto" width="1400" class=" d-flex justify-content-center align-items-center mx-auto" rounded>
@@ -20,7 +20,7 @@
         </v-sheet>
         <v-divider></v-divider>
         <footer class="d-flex flex-wrap justify-content-center align-items-center border-top" style="height: 100px;">
-  <div class="col-md-4 d-flex align-items-center">
+  <div class=" d-flex align-items-center">
     <p class="mb-3 mb-md-0 text-muted text-center">© 2024 Prathibhatheeram</p>
   </div>
 </footer>

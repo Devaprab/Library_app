@@ -1,4 +1,7 @@
 <template>
+  <v-snackbar v-model="snackbar" :color="color" :timeout="timeout" location="center">
+      <div class="text-center">{{ message }}</div>
+    </v-snackbar>
     <h1 class="thr">Issued Book List</h1>
       <div class="search-bar ms-5">
         <div class="search">
@@ -74,18 +77,14 @@ import axios from 'axios'
 export default {
   data() {
     return {
-      teachers: [
-        // { id: 1, name: 'John Doe', class: '5th', subject: 'Maths', BookName: 'The Alchemist', IssuedDate: '', Return: '', editMode: false },
-        // { id: 1, name: 'Siya', class: '8th', subject: 'Maths', BookName: 'It Ends with Us', IssuedDate: '', Return: '', editMode: false },
-        // { id: 2, name: 'Jane Smith', class: '6th', subject: 'Maths', BookName: 'It Starts with Us', IssuedDate: '', Return: '', editMode: false },
-        // { id: 3, name: 'Alice Johnson', class: '7th', subject: 'English', BookName: 'Who Sank the Boat', IssuedDate: '', Return: '', editMode: false },
-        // { id: 4, name: 'Bob Johnson', class: '8th', subject: 'Maths', BookName: 'It', IssuedDate: '', Return: '', editMode: false },
-        // { id: 5, name: 'Emily Brown', class: '9th', subject: 'Malayalam', BookName: 'Chemmeen', IssuedDate: '', Return: '', editMode: false },
-        // { id: 6, name: 'Michael Clark', class: '10th', subject: 'Hindi', BookName: 'Aadujeevitham', IssuedDate: '', Return: '', editMode: false }
-      ],
+      teachers: [],
       searchText: '',
       bookid: null,
-      teacherid: null
+      teacherid: null,
+      snackbar: false,
+      color: '#E8F5E9',
+      timeout: 3000,
+      message: '',
     };
   },
   computed: {
@@ -113,14 +112,25 @@ this.getissuedbooks()
             "userId": this.teacherid 
         });
         if (response.status === 200) {
-            alert('Successfully issued');
+            // alert('Successfully issued');
+            this.message = 'Book Issued Successfully !!';
+            this.color = 'green';
+            this.clearForm();
+            this.snackbar = true;
             this.getissuedbooks()
         }
     } catch (error) {
+        this.message = error.response.data + '!!';
+        this.color = 'red';
+        this.snackbar = true;
         console.error(error);
-        alert(error.response.data)
+        // alert(error.response.data)
     }
 },
+clearForm() {
+      this.teacherid = '';
+      this.bookid = '';
+    },
    async getissuedbooks(){
 try{
   const response = await axios.get(`${this.$store.getters.getUrl}/issues/allissuedbooks`)

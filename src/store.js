@@ -1,7 +1,7 @@
 import {createStore} from 'vuex';
 const store = createStore({
     state: {
-        baseUrl: 'http://192.168.1.16:8080',
+        baseUrl: 'http://localhost:3000',
         books: [
             {
               bookName:'Adujeevitham',

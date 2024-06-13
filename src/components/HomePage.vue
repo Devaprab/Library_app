@@ -13,7 +13,7 @@
       ></v-carousel-item>
     </v-carousel>
     <h1 class="mt-5 mb-5">Recently Added</h1>
-    <div class="d-flex flex-wrap">
+    <div class="d-flex flex-wrap justify-content-center">
       <v-hover v-slot="{ isHovering, props }" v-for="bookList in limitedBookLists" :key="bookList.id">
         <v-card
           class="mx-4 mb-3"
