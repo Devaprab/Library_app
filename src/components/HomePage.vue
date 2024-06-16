@@ -1,4 +1,6 @@
 <template>
+  <!-- <v-main>
+    <v-container class="py-8 px-6" fluid> -->
   <router-view name="navbar"></router-view>
   <div class="home mt-5 mb-3">
     <h1 class="heading text-center">Welcome to Prathibhatheeram</h1>
@@ -41,6 +43,8 @@
       </v-hover>
     </div>
   </div>
+  <!-- </v-container>
+  </v-main> -->
 </template>
 
 <script>
@@ -78,7 +82,7 @@ export default {
     async getBooks() {
       try {
         const response = await axios.get(`${this.$store.getters.getUrl}/library/getAllBooks`);
-        if (response.status === 200) {
+        if (response.status >= 200 || response.status < 300) {
           console.log(response.data);
           this.bookLists = response.data.sort((a,b) => b.id - a.id);
         }

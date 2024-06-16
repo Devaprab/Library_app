@@ -1,8 +1,10 @@
 <template>
-  <v-snackbar v-model="snackbar" :color="color" :timeout="timeout" location="center">
+  <v-main>
+    <v-container class="py-8 px-6" fluid>
+  <v-snackbar v-model="snackbar" :color="color" :timeout="timeout" location="bottom">
       <div class="text-center">{{ message }}</div>
     </v-snackbar>
-    <h1 class="thr">Issued Book List</h1>
+    <!-- <h1 class="thr">Issued Book List</h1> -->
       <div class="search-bar ms-5">
         <div class="search">
           <div class="search-bar">
@@ -15,13 +17,13 @@
         <input type="text" v-model="searchText" placeholder="Search by Name, Class, or Subject">
         <i class="fa fa-search" aria-hidden="true"></i> 
       </div>
-      <div class="additional-inputs">
+      <div class="additional-inputs ms-5">
         <th>Teachers ID</th> <input type="text" placeholder="Teachers Id" v-model="teacherid">
         <th>Issued Book ID</th>
         <input type="text" placeholder="Issued Book Id" v-model="bookid">
-        <button @click="issueBook">Issue Book</button>
+        <button @click="issueBook" style="background-color: #4397a0;">Issue Book</button>
       </div>
-      <table>
+      <table class="ms-5 mt-5">
         <thead>
           <tr>
           <th>SlNo.</th>
@@ -59,7 +61,7 @@
               <input type="text" v-model="teacher.returnDate" :disabled="!teacher.editMode">
             </td>
             <td>
-              <button class="btn btn-primary" @click="returnBook(index)">Return</button>
+              <button class="btn" style="background-color: #4397a0; color:white" @click="returnBook(index)">Return</button>
             </td>
             <!-- <td>
               <button v-if="!teacher.editMode" @click="toggleEditMode(index)">Edit/</button>
@@ -70,6 +72,8 @@
           </tr>
         </tbody>
       </table>
+    </v-container>
+    </v-main>
 </template>
 
 <script>
@@ -111,7 +115,7 @@ this.getissuedbooks()
             "bookId": this.bookid,
             "userId": this.teacherid 
         });
-        if (response.status === 200) {
+        if (response.status >= 200 || response.status < 300) {
             // alert('Successfully issued');
             this.message = 'Book Issued Successfully !!';
             this.color = 'green';
@@ -134,7 +138,7 @@ clearForm() {
    async getissuedbooks(){
 try{
   const response = await axios.get(`${this.$store.getters.getUrl}/issues/allissuedbooks`)
-  if(response.status===200){
+  if(response.status >= 200 || response.status < 300){
     this.teachers = response.data
     console.log(response.data)
   }                                                                                             
@@ -153,9 +157,12 @@ catch(error){
           "bookId": this.bookid,
           "userId": this.teacherid 
         });
-        if (response.status === 200) {
-            alert('Returned Successfully');
-            this.getissuedbooks()
+        if (response.status >= 200 || response.status < 300) {
+          this.message = 'Book Returned Successfully !!';
+          this.color = 'green';
+          this.snackbar = true;
+            // alert('Returned Successfully');
+          this.getissuedbooks()
         }
     } catch (error) {
         console.error(error);
@@ -173,10 +180,8 @@ catch(error){
 <style scoped>
   /* Your existing CSS styles */
   table {
-    width: 70%;
+    width: 96%;
     border-collapse: collapse;
-    margin-top: 100px;
-    margin-left: 250px;
   }
   
   th, td {
@@ -286,14 +291,12 @@ catch(error){
   }
   
 .additional-inputs {
-  margin-top: 50px; /* Adjust the margin as needed */
+  margin-top: 75px; /* Adjust the margin as needed */
   display: flex;
   justify-content: space-between;
   align-items: center;
-  max-width: 70%; /* Adjust the width as needed */
-  margin-left: 250px;
-  
-
+  max-width: 100%; /* Adjust the width as needed */
+  /* margin-left: 250px; */
 }
 
 .additional-inputs input[type="text"] {

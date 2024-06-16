@@ -1,4 +1,6 @@
 <template>
+  <v-main>
+    <v-container justify-center>
     <div class="d-flex flex-column">
         <!-- <v-chip-group
         selected-class="text-primary"
@@ -40,6 +42,8 @@
 </div>
 </div>
 </div>
+</v-container>
+</v-main>
   </template>
 
 <script>
@@ -60,7 +64,7 @@ export default {
       async getBooks() {
         try{
        const response = await axios.get(`${this.$store.getters.getUrl}/library/getAllBooks`);
-           if(response.status === 200){
+           if(response.status >= 200 || response.status < 300){
             console.log(response.data);
             this.$store.commit('setBooks',response.data);
            }

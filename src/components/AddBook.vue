@@ -1,4 +1,6 @@
 <template>
+  <v-main>
+    <v-container class="py-8 px-6" fluid>
     <div class="container added-books ms-5 mb-2">
             <h3 class="text mb-5 mt-4 text-center" style="font-size: 24px;">Add Book</h3>  
             <form @submit.prevent="submitForm" enctype="multipart/form-data">
@@ -8,8 +10,6 @@
               <input type="text" class="form-control w-50 col-10" id="title" v-model="bookname" required>
             </div>
           </div>
-       
-      
           <div class="input-group">
             <div class="input-group row mt-3">
               <label for="author" class="form-label col-2"><p>Author :</p></label>
@@ -26,9 +26,7 @@
             <div class="input-group row mt-3">
               <label for="genre" class="form-label col-2"><p>Language :</p></label>
               <input type="text" class="form-control col-10" id="language" v-model="language" required>
-             
             </div>
-
           </div>
           <div class="input-group">
             <div class="input-group row mt-3">
@@ -47,7 +45,6 @@
               <label for="quantity" class="form-label col-2"><p>Quantity :</p></label>
               <input type="text" class="form-control col-10" id="quantity" v-model="quantity" required>
             </div>
-          
           </div>
           <div class="d-flex justify-content-end">
             <button type="submit" class="btn btn-success mt-3 me-5">Add Book</button>
@@ -69,6 +66,8 @@
            </form>
            
           </div>
+          </v-container>
+        </v-main>
 </template>
 
 <script>
@@ -84,7 +83,7 @@
             rack: '',
             quantity: '',
             coverImg:'',
-            dialogSuccess: true
+            dialogSuccess: false
           };
         },
         
@@ -116,7 +115,7 @@ console.log('reader', reader)
           'Content-Type': 'multipart/form-data'
         }
       });
-      if(response.status == 201) {
+      if(response.status >= 200 || response.status < 300) {
         console.log(response.data);
         this.dialogSuccess = true;
         this.clearForm();
@@ -137,29 +136,16 @@ console.log('reader', reader)
     },
   }
 }
- 
-        
+</script>
       
-      
-      </script>
-      
-      <style scoped>
-      
-
+<style scoped>
 .btn:hover {
   border: 2px solid rgb(248, 240, 12);
 }
 
-/* Other styles remain unchanged */
-  
-
 .btn:hover {
   border: 2px solid rgb(248, 240, 12);
 }
-/* .form-group {
-  margin-bottom: 20px;
-  
-} */
 
 .input-group {
   display: flex;
@@ -173,20 +159,17 @@ console.log('reader', reader)
 }
 
 .input-group label {
-  
   margin-right: 10px;
 }
-/* .input-group input {
-  flex: 1;
-  } */
+
 .added-books {
   margin-top: 40px;
-  width: 900px;
+  width: 1100px;
   height: 600px;
   background-color: #fdfdfd;
   border: 3px solid #66BB6A;
   border-radius: 10px;
-  } 
+} 
 
 .btn{
   border-radius: 10px; 

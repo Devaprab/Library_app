@@ -1,5 +1,7 @@
 <template>
-  <h1 class="text-center mt-5">Returned Book List</h1>
+  <v-main>
+    <v-container class="py-8 px-6" fluid>
+  <!-- <h1 class="text-center mt-5">Returned Book List</h1> -->
     <div class="search ms-3">
         <div class="search-bar">
   <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search icon" viewBox="0 0 16 16">
@@ -47,6 +49,8 @@
               </tbody>
             </v-table>
           </div>
+    </v-container>
+  </v-main>
 </template>
 
 <script>
@@ -90,7 +94,7 @@ export default {
         async getbooks(){
         try{
             const response = await axios.get(`${this.$store.getters.getUrl}/return/all-return-books`);
-            if(response.status===200){
+            if(response.status >= 200 || response.status < 300){
                 console.log(response.data);
                 this.returnBooks = response.data;
             }

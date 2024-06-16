@@ -1,5 +1,10 @@
 <template>
-  <h1 class="text-center mt-5">Manage Books</h1>
+  <v-main>
+    <v-container class="py-8 px-6" fluid>
+      <v-snackbar v-model="snackbar" :color="color" :timeout="timeout" location="bottom">
+      <div class="text-center">{{ message }}</div>
+    </v-snackbar>
+  <!-- <h1 class="text-center mt-5">Manage Books</h1> -->
   <div class="search ms-3">
     <div class="search-bar">
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search icon" viewBox="0 0 16 16">
@@ -58,6 +63,8 @@
       </tbody>
     </v-table>
   </div>
+  </v-container>
+  </v-main>
 </template>
 
 <script>
@@ -70,6 +77,10 @@ export default {
       dialogDelete: false,
       deleteIndex: -1,
       deleteItem: {},
+      snackbar: false,
+      color: '#E8F5E9',
+      timeout: 3000,
+      message: '',
     };
   },
   computed: {
@@ -103,7 +114,7 @@ export default {
     async getbooks() {
       try {
         const response = await axios.get(`${this.$store.getters.getUrl}/library/getAllBooks`);
-        if (response.status === 200) {
+        if (response.status >= 200 || response.status < 300) {
           console.log(response.data);
           this.addedBooks = response.data.map(book => ({
             ...book,
@@ -130,8 +141,11 @@ export default {
           "rack": book.rack,
           "quantity": book.quantity
         });
-        if (response.status === 200) {
-          alert('successfully updated')
+        if (response.status >= 200 || response.status < 300) {
+          this.message = 'Successfully updated !!';
+            this.color = 'green';
+            this.snackbar = true;
+          // alert('successfully updated')
           this.addedBooks[index].editable = false;
           this.addedBooks[index].rowHighlighted = false; // Remove row highlight after edit
           this.getbooks();
@@ -144,13 +158,17 @@ export default {
       try {
         const bookid = this.deleteItem.id
         const response = await axios.delete(`${this.$store.getters.getUrl}/library/deleteId/${bookid}`)
-        if (response.status === 200) {
+        if (response.status >= 200 || response.status < 300) {
           this.dialogDelete = false;
           // alert('successfully deleted')
           this.getbooks()
         }
       } catch (error) {
-        alert(error)
+        // alert(error)
+        this.dialogDelete = false;
+        this.message = "Booked already registered can't be deleted !!";
+            this.color = 'red';
+            this.snackbar = true;
         console.error(error)
       }
     },

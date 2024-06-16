@@ -1,9 +1,9 @@
 import {createRouter,createWebHistory} from 'vue-router';
 
 import HomePage from './components/HomePage.vue';
-import LoginPage from './components/LoginPage.vue';
+// import LoginPage from './components/LoginPage.vue';
 import BookList from './components/BookList.vue';
-import AdminPage from './components/AdminPage.vue';
+// import AdminPage from './components/AdminPage.vue';
 import NavBar from './components/NavBar.vue';
 import BookCard from './components/BookCard.vue';
 import AddBook from './components/AddBook.vue';
@@ -29,7 +29,7 @@ const router = createRouter ({
                 {
                     path:'/login',
                     name: 'login',
-                    component:LoginPage,
+                    component: () => import('./components/AdminLogin.vue'),
                 },
                 {
                     path:'/adminregister',
@@ -46,7 +46,8 @@ const router = createRouter ({
                 {
                     path: '/adminpage',
                     name: 'adminpage',
-                    component:AdminPage,
+                    // component:AdminPage,
+                    component: () => import('./components/AdminDash.vue'),
                     children: [
                         {
                             path:'/books',

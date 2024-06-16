@@ -1,5 +1,7 @@
 <template>
-  <h1 class="thr">Teachers List</h1>
+  <v-main>
+    <v-container class="py-8 px-6" fluid>
+  <!-- <h1 class="thr">Teachers List</h1> -->
   <div class="search-bar ms-3">
     <div class="search">
       <div class="search-bar">
@@ -70,6 +72,8 @@
       </tbody>
     </v-table>
   </div>
+  </v-container>
+  </v-main>
 </template>
 
 <script>
@@ -124,7 +128,7 @@ export default {
           "division": teacher.division,
           "subject": teacher.subject,
         });
-        if (response.status === 200) {
+        if (response.status >= 200 || response.status < 300) {
           alert('successfully updated')
           this.teachers[index].editable = false;
           this.getteachers();
@@ -139,7 +143,7 @@ export default {
       try {
         const teacherid = this.deleteItem.id
         const response = await axios.delete(`${this.$store.getters.getUrl}/api/${teacherid}`, {})
-        if (response.status === 200) {
+        if (response.status >= 200 || response.status < 300) {
           this.dialogDelete = false;
           // alert('successfully deleted')
           this.getteachers()
@@ -158,7 +162,7 @@ export default {
     async getteachers() {
       try {
         const response = await axios.get(`${this.$store.getters.getUrl}/api/allTeachers`)
-        if (response.status === 200) {
+        if (response.status >= 200 || response.status < 300) {
           const teachers = response.data.filter(res => res.role !== 'ADMIN');          
           this.teachers = teachers.map(teacher => ({
             ...teacher,

@@ -1,38 +1,50 @@
 <template>
-    <div class="mb-4 pb-2 mt-5">
-      <form class="form-signin  pb-4" @submit.prevent=" register">
-        <h1 class="h3 mb-3 font-weight-normal mt-5">Please Sign Up</h1>
-        <label for="inputuser" class="sr-only">User Name</label>
-        <input type="text" id="inputuser" class="form-control" placeholder="User Name" v-model="adminname">
-        <p v-if="nameError" class="error-message">{{ nameError }}</p>
-        <label for="inputuser" class="sr-only">Email</label>
-        <input type="email" id="inputemail" class="form-control" placeholder="Email" v-model="email">
-        <p v-if="emailError" class="error-message">{{ emailError }}</p>
-        <label for="inputPassword" class="sr-only">Password</label>
-        <input type="password" id="inputPassword" class="form-control" placeholder="Password" v-model="pswd">
-        <p v-if="passwordError" class="error-message">{{ passwordError }}</p>
-        <div class="checkbox mb-3">
-        </div>
-        <button class="btn btn-lg buttonstyle btn-block text-white" type="submit">Sign Up</button>
-        <p class="mt-3 ms-5 ps-3">Already a user?<router-link to="/login">Login</router-link></p>
-        <v-dialog v-model="dialog" width="400px">
-<v-card class="mx-auto rounded-5" elevation="2" max-width="400" width="100%" height="250">
-    <v-card-title class="green-header mx-auto"><v-icon
-      class="mb-2 mt-4"
-      color="success"
-      icon="mdi-check-circle"
-      size="100"
-    ></v-icon></v-card-title>
-    <v-card-text class="text-success text-center"><h2>Successfully Added</h2>
-    <p>Please Login</p></v-card-text>
-</v-card>
-    
-</v-dialog>
-      </form>
+  <v-main>
+      <v-container justify-center>
+          <section class="">
+<div class="container-fluid mt-5 pt-5">
+  <div class="row d-flex justify-content-start align-items-center">
+    <div class="col-md-9 col-lg-6 col-xl-5">
+      <v-img src="../assets/Login book.png"
+        class="img-fluid"></v-img>
     </div>
-  </template>
-  <script>
-import axios from 'axios';
+    <div class="col-md-8 col-lg-6 col-xl-4 offset-xl-1">
+      <v-form ref="form" @submit.prevent="register">
+        <!-- Name input -->
+        <div data-mdb-input-init class="form-outline mb-4">
+            <v-text-field label="Enter Your Usrname" v-model="adminname" variant="solo" class="custom-text-field" :rules="nameRules"></v-text-field>
+        </div>
+        <!-- Email input -->
+        <div data-mdb-input-init class="form-outline mb-4">
+            <v-text-field label="Enter Your Email" v-model="email" variant="solo" class="custom-text-field" :rules="emailRules"></v-text-field>
+        </div>
+        <!-- Password input -->
+        <div data-mdb-input-init class="form-outline mb-3">
+          <v-text-field v-model="pswd" :append-inner-icon="visible ? 'mdi-eye' : 'mdi-eye-off'"
+            :type="visible ? 'text' : 'password'" style="width: 362px; "  label="Password"
+             prepend-inner-icon="mdi-lock" :rules="passRules"
+            @click:append-inner="visible = !visible">
+          </v-text-field>
+        </div>
+
+        <div class="text-center text-lg-start mt-4 pt-2">
+          <v-btn type="submit"
+            style=" background-color: #007bff; color: white;">Register</v-btn>
+          <p class="small fw-bold mt-2 pt-1 mb-0">Already have an account? <router-link to="/login"
+              >Login</router-link></p>
+        </div>
+
+      </v-form>
+    </div>
+  </div>
+</div>
+</section>
+      </v-container>
+  </v-main>
+</template>
+
+<script>
+  import axios from 'axios';
   export default {
     data() {
       return {
@@ -40,78 +52,51 @@ import axios from 'axios';
         pswd: '',
         email: '',
         dialog: false,
-        emailError: '',
-        passwordError: '',
-        nameError: '',
+        visible: false,
+        nameRules: [
+      value => !!value || 'Name is required.',
+      value => /^[^\s\W]/.test(value) || 'Name should not start with a special character.',
+      value => /^\D+$/.test(value) || 'Name should not contain digits.',
+      value => (value?.length >= 3) || 'Name must contain at least 3 characters.',
+      value => !/[^a-zA-Z\s.]/g.test(value) || 'Name should not contain special characters',
+    ],
+    emailRules: [
+      value => !!value || 'E-mail is required.',
+      value => /.+@.+\..+/.test(value) || 'E-mail must be valid.',
+    ],
+    passRules: [
+    value => !!value || 'Password is required.',
+      value => /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*()_+}{":;'?/>.<,])[a-zA-Z\d!@#$%^&*()_+}{":;'?/>.<,]{8,}$/.test(value) ||  'Password must contain at least 8 characters, including uppercase, lowercase letters, special character and a digit',
+
+    ],
       }
     },
     methods: {
       async register() {
-        // Validation
-        console.log("entered");
-        this.nameError = '';
-        this.emailError = '';
-      this.passwordError = '';
-      if (!this.email || !this.pswd || !this.nameError) {
-        if (!this.adminname) this.nameError = 'Name is required';
-        if (!this.email) this.emailError = 'Email is required';
-        if (!this.pswd) this.passwordError = 'Password is required';
-        return;
-      }
-
-      // Email validation
-      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-      if (!emailRegex.test(this.email)) {
-        this.emailError = 'Invalid email address';
-        return;
-      }
-
-      // Password validation
-      const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
-      if (!passwordRegex.test(this.pswd)) {
-        this.passwordError = 'Password must be at least 8 characters long and contain at least one uppercase letter, one lowercase letter, and one number';
-        return;
-      }
-      try{
-        this.emailError = '';
-        this.passwordError = '';
-        const response = await axios.post(`${this.$store.getters.getUrl}/admin/AdminReg`,{
-          "adminName": this.adminname,
-          "password": this.pswd,
-          "email": this.email,
-          "role": 'admin'
-        });
-        if(response.status === 200) {
-          console.log(response.data)
-          this.dialog =true; 
-        // alert('Successfully registered')
-        // this.$router.push('/adminpage');
+        console.log("clicked register");
+        const { valid } = await this.$refs.form.validate();
+        if (valid) {
+        try {
+          const response = await axios.post(`${this.$store.getters.getUrl}/admin/AdminReg`, {
+            "adminName": this.adminname,
+            "password": this.pswd,
+            "email": this.email,
+            "role": 'admin'
+          });
+          if (response.status >= 200 || response.status < 300) {
+            this.dialog = true; 
+          }
+        } catch (error) {
+          console.error(error)
         }
       }
-      catch(error){
-        console.error(error)
       }
-  }
     }
-}
-</script>
-
-
+  }
+  </script>
 
 <style scoped>
-.buttonstyle {
-  background-color: #303b1b;
-}
-
-form.form-signin {
-    border-radius: 10px;
-    padding-left: 50px;
-    padding-right: 50px;
-    background-color: white;
-    padding-top: 10px;
-}
-.error-message {
-  color: red;
-  font-size: 14px;
+:deep(.v-input__control ) {
+background-color: white; /* Set the input text color to white */
 }
 </style>
