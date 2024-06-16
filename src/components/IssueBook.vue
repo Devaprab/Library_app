@@ -1,6 +1,6 @@
 <template>
-  <v-main>
-    <v-container class="py-8 px-6" fluid>
+  <!-- <v-main>
+    <v-container class="py-8 px-6" fluid> -->
   <v-snackbar v-model="snackbar" :color="color" :timeout="timeout" location="bottom">
       <div class="text-center">{{ message }}</div>
     </v-snackbar>
@@ -72,8 +72,8 @@
           </tr>
         </tbody>
       </table>
-    </v-container>
-    </v-main>
+    <!-- </v-container>
+    </v-main> -->
 </template>
 
 <script>

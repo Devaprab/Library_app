@@ -1,7 +1,10 @@
 <template>
-  <v-main>
-    <v-container class="py-8 px-6" fluid>
+  <!-- <v-main>
+    <v-container class="py-8 px-6" fluid> -->
   <!-- <h1 class="thr">Teachers List</h1> -->
+  <v-snackbar v-model="snackbar" :color="color" :timeout="timeout" location="top">
+      <div class="text-center">{{ message }}</div>
+    </v-snackbar>
   <div class="search-bar ms-3">
     <div class="search">
       <div class="search-bar">
@@ -72,8 +75,8 @@
       </tbody>
     </v-table>
   </div>
-  </v-container>
-  </v-main>
+  <!-- </v-container>
+  </v-main> -->
 </template>
 
 <script>
@@ -86,6 +89,10 @@ export default {
       dialogDelete: false,
       deleteIndex: -1,
       deleteItem: {},
+      snackbar: false,
+      color: '#E8F5E9',
+      timeout: 3000,
+      message: '',
     };
   },
   computed: {
@@ -129,12 +136,18 @@ export default {
           "subject": teacher.subject,
         });
         if (response.status >= 200 || response.status < 300) {
-          alert('successfully updated')
+          this.message = 'Successfully Updated !!';
+            this.color = 'green';
+            this.snackbar = true;
+          // alert('successfully updated')
           this.teachers[index].editable = false;
           this.getteachers();
         }
       } catch (error) {
-        console.error(error)
+        console.error(error);
+        this.message = error.response.data + '!!';
+        this.color = 'red';
+          this.snackbar = true;
       }
 
     },
@@ -145,6 +158,9 @@ export default {
         const response = await axios.delete(`${this.$store.getters.getUrl}/api/${teacherid}`, {})
         if (response.status >= 200 || response.status < 300) {
           this.dialogDelete = false;
+          this.message = 'Successfully Deleted !!';
+            this.color = 'green';
+            this.snackbar = true;
           // alert('successfully deleted')
           this.getteachers()
         } else if(response.status === 500) {
@@ -155,7 +171,9 @@ export default {
       } catch (error) {
         // alert(error)
         this.dialogDelete = false;
-        alert('Book is not returned. Please return the book and delete again ');
+        this.message = 'Book is not returned. Please return the book and delete again ';
+        this.color = 'red';
+          this.snackbar = true;
         console.error(error)
       }
     },

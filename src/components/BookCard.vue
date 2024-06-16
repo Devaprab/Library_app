@@ -1,6 +1,6 @@
 <template>
-  <v-main>
-    <v-container class="py-8 px-6" fluid>
+  <!-- <v-main>
+    <v-container class="py-8 px-6" fluid> -->
     <div class="d-flex flex-wrap justify-content-center">
   <v-hover v-slot="{ isHovering, props }" v-for="bookList in bookLists" :key="bookList.id">
     <v-card
@@ -32,8 +32,8 @@
     </v-card>
   </v-hover>
 </div>
-</v-container>
-</v-main>
+<!-- </v-container>
+</v-main> -->
 </template>
 
 <script>

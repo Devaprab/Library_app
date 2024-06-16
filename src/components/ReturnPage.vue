@@ -1,6 +1,6 @@
 <template>
-  <v-main>
-    <v-container class="py-8 px-6" fluid>
+  <!-- <v-main>
+    <v-container class="py-8 px-6" fluid> -->
   <!-- <h1 class="text-center mt-5">Returned Book List</h1> -->
     <div class="search ms-3">
         <div class="search-bar">
@@ -49,8 +49,8 @@
               </tbody>
             </v-table>
           </div>
-    </v-container>
-  </v-main>
+    <!-- </v-container>
+  </v-main> -->
 </template>
 
 <script>

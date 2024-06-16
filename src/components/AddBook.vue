@@ -1,6 +1,9 @@
 <template>
-  <v-main>
-    <v-container class="py-8 px-6" fluid>
+  <!-- <v-main>
+    <v-container class="py-8 px-6" fluid> -->
+      <v-snackbar v-model="snackbar" :color="color" :timeout="timeout" location="bottom">
+      <div class="text-center">{{ message }}</div>
+    </v-snackbar>
     <div class="container added-books ms-5 mb-2">
             <h3 class="text mb-5 mt-4 text-center" style="font-size: 24px;">Add Book</h3>  
             <form @submit.prevent="submitForm" enctype="multipart/form-data">
@@ -49,7 +52,7 @@
           <div class="d-flex justify-content-end">
             <button type="submit" class="btn btn-success mt-3 me-5">Add Book</button>
           </div>
-          <v-dialog v-model="dialogSuccess" width="400px">
+          <!-- <v-dialog v-model="dialogSuccess" width="400px">
 <v-card class="mx-auto rounded-5" elevation="2" max-width="400" width="100%" height="250">
   <v-card-title class="green-header bg-green py-3"></v-card-title>
     <v-card-text class="text-success text-center">
@@ -62,12 +65,12 @@
       <h3>Successfully Added</h3></v-card-text>
 </v-card>
     
-</v-dialog>
+</v-dialog> -->
            </form>
            
           </div>
-          </v-container>
-        </v-main>
+          <!-- </v-container>
+        </v-main> -->
 </template>
 
 <script>
@@ -83,7 +86,11 @@
             rack: '',
             quantity: '',
             coverImg:'',
-            dialogSuccess: false
+            dialogSuccess: false,
+            snackbar: false,
+            color: '#E8F5E9',
+            timeout: 3000,
+            message: '',
           };
         },
         
@@ -117,12 +124,18 @@ console.log('reader', reader)
       });
       if(response.status >= 200 || response.status < 300) {
         console.log(response.data);
-        this.dialogSuccess = true;
-        this.clearForm();
+        // this.dialogSuccess = true;
+        this.message = 'Book added successfully!!';
+            this.color = 'green';
+            this.clearForm();
+            this.snackbar = true;
       }
       // Handle response
     } catch (error) {
       console.error(error);
+      this.message = error.response.data + '!!';
+        this.color = 'red';
+          this.snackbar = true;
     }
 },         
     clearForm() {

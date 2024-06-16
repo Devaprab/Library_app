@@ -1,6 +1,9 @@
 <template>
   <v-main>
       <v-container justify-center>
+        <v-snackbar v-model="snackbar" :color="color" :timeout="timeout" location="top">
+      <div class="text-center">{{ message }}</div>
+    </v-snackbar>
           <section class="">
 <div class="container-fluid mt-5 pt-5">
   <div class="row d-flex justify-content-start align-items-center">
@@ -21,7 +24,7 @@
         <!-- Password input -->
         <div data-mdb-input-init class="form-outline mb-3">
           <v-text-field v-model="pswd" :append-inner-icon="visible ? 'mdi-eye' : 'mdi-eye-off'"
-            :type="visible ? 'text' : 'password'" style="width: 362px; "  label="Password"
+            :type="visible ? 'text' : 'password'"   label="Password"
              prepend-inner-icon="mdi-lock" :rules="passRules"
             @click:append-inner="visible = !visible">
           </v-text-field>
@@ -53,6 +56,10 @@
         email: '',
         dialog: false,
         visible: false,
+        snackbar: false,
+      color: '#E8F5E9',
+      timeout: 3000,
+      message: '',
         nameRules: [
       value => !!value || 'Name is required.',
       value => /^[^\s\W]/.test(value) || 'Name should not start with a special character.',
@@ -84,13 +91,24 @@
             "role": 'admin'
           });
           if (response.status >= 200 || response.status < 300) {
-            this.dialog = true; 
+            this.message = 'Successfully registered please Login !!';
+            this.color = 'green';
+            this.clearForm();
+            this.snackbar = true;
           }
         } catch (error) {
+          this.message = error.response.data + '!!';
+          this.color = 'red';
+          this.snackbar = true;
           console.error(error)
         }
       }
-      }
+      },
+      clearForm() {
+      this.adminname = '';
+      this.pswd = '';
+      this.email = '';
+    },
     }
   }
   </script>
