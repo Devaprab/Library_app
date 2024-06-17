@@ -16,7 +16,11 @@
     </div>
   </div>
   <div style="margin-left: 15px; margin-right: 20px;" class="mt-5">
-    <v-table class="table" height="300px" fixed-header>
+    <v-skeleton-loader
+          v-if="loading"
+          type="table-tbody"
+        ></v-skeleton-loader>
+    <v-table v-else class="table" height="300px" fixed-header>
       <thead>
         <tr>
           <th>ID</th>
@@ -93,6 +97,7 @@ export default {
       color: '#E8F5E9',
       timeout: 3000,
       message: '',
+      loading: true,
     };
   },
   computed: {
@@ -186,6 +191,7 @@ export default {
             ...teacher,
             editMode: false // Initialize editMode property for each teacher
           }));
+          this.loading = false;
         }
       } catch (error) {
         console.error(error)

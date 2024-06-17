@@ -15,7 +15,11 @@
     <div style="margin-top: 30px;"></div>
   </div>
   <div style="margin-left: 15px; margin-right: 20px;">
-    <v-table class="table" height="300px" fixed-header>
+    <v-skeleton-loader
+          v-if="loading"
+          type="table-tbody"
+        ></v-skeleton-loader>
+    <v-table v-else class="table" height="300px" fixed-header>
       <thead>
         <tr class="bg-dark">
           <th>BookId</th>
@@ -81,6 +85,7 @@ export default {
       color: '#E8F5E9',
       timeout: 3000,
       message: '',
+      loading: true,
     };
   },
   computed: {
@@ -121,6 +126,7 @@ export default {
             rowHighlighted: false // Initialize rowHighlighted property for each book
           }));
         }
+        this.loading = false;
       } catch (error) {
         console.error(error);
       }

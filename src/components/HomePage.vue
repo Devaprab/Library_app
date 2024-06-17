@@ -3,7 +3,7 @@
     <v-container class="py-8 px-6" fluid> -->
   <router-view name="navbar"></router-view>
   <div class="home mt-5 mb-3">
-    <h1 class="heading text-center">Welcome to Prathibhatheeram</h1>
+    <h1 class="heading text-center">Welcome to Sanathanam</h1>
     <v-divider></v-divider>
     <v-carousel hide-delimiters>
       <v-carousel-item

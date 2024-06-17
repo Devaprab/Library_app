@@ -13,7 +13,11 @@
 <div style="margin-top: 30px;"></div>
     </div>
     <div style=" margin-left: 15px; margin-right: 20px;">
-    <v-table class="table" height="300px" fixed-header> 
+      <v-skeleton-loader
+          v-if="loading"
+          type="table-tbody"
+        ></v-skeleton-loader>
+    <v-table v-else class="table" height="300px" fixed-header> 
               <thead>
                 <tr>
                   <th>SL No</th>
@@ -60,6 +64,7 @@ export default {
         return {
             searchText: '',
             returnBooks: [] ,
+            loading: true,
         }
     },
     computed: {
@@ -97,6 +102,7 @@ export default {
             if(response.status >= 200 || response.status < 300){
                 console.log(response.data);
                 this.returnBooks = response.data;
+                this.loading = false;
             }
         }
         catch(error){

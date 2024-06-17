@@ -5,7 +5,7 @@
         <v-avatar class="mb-2" color="light-green-darken-4" size="64">
           <v-icon class="mdi mdi-book-open-page-variant-outline"></v-icon>
         </v-avatar>
-        <p class="fs-4 ms-2">Prathibhatheeram</p>
+        <p class="fs-4 ms-2">Sanathanam</p>
       </v-sheet>
       <v-list density="compact" nav class="mt-0">
         <v-list-item value="View Books" class="navlist fs-6" style="border-bottom: 1px solid #E0E0E0;" 
@@ -39,14 +39,14 @@
       <v-app-bar-nav-icon @click="drawer = !drawer" color="black"></v-app-bar-nav-icon>
       <v-container fluid class="d-flex justify-content-between align-items-center ps-0 ms-0">
         <h5 class="d-inline mb-0 text-black">{{ selectedNavItem }}</h5>
-        <v-btn class="rounded-5 text-capitalize" @click="logout" prepend-icon="mdi-logout" color="black" variant="elevated">
+        <v-btn class="rounded-2 text-capitalize" @click="logout" prepend-icon="mdi-logout" color="black" variant="elevated">
           Logout
         </v-btn>
       </v-container>
     </v-app-bar>
 
     <v-main class="main-content mt-5 pe-5">
-      <v-container justify-center>
+      <v-container fluid>
         <router-view></router-view>
       </v-container>
     </v-main>
@@ -114,12 +114,6 @@ export default {
 <style scoped>
 .green-background {
   background-image: linear-gradient(0deg, rgba(192, 241, 66, 0.2) 0%, rgba(192, 241, 66, 0.2) 16.667%, rgba(73, 212, 31, 0.2) 16.667%, rgba(73, 212, 31, 0.2) 33.334%, rgba(113, 222, 43, 0.2) 33.334%, rgba(113, 222, 43, 0.2) 50.001%, rgba(232, 251, 78, 0.2) 50.001%, rgba(232, 251, 78, 0.2) 66.668%, rgba(152, 231, 54, 0.2) 66.668%, rgba(152, 231, 54, 0.2) 83.335%, rgba(33, 202, 19, 0.2) 83.335%, rgba(33, 202, 19, 0.2) 100.002%), linear-gradient(135deg, rgba(192, 241, 66, 0.2) 0%, rgba(192, 241, 66, 0.2) 16.667%, rgba(73, 212, 31, 0.2) 16.667%, rgba(73, 212, 31, 0.2) 33.334%, rgba(113, 222, 43, 0.2) 33.334%, rgba(113, 222, 43, 0.2) 50.001%, rgba(232, 251, 78, 0.2) 50.001%, rgba(232, 251, 78, 0.2) 66.668%, rgba(152, 231, 54, 0.2) 66.668%, rgba(152, 231, 54, 0.2) 83.335%, rgba(33, 202, 19, 0.2) 83.335%, rgba(33, 202, 19, 0.2) 100.002%), linear-gradient(90deg, rgba(192, 241, 66, 0.2) 0%, rgba(192, 241, 66, 0.2) 16.667%, rgba(73, 212, 31, 0.2) 16.667%, rgba(73, 212, 31, 0.2) 33.334%, rgba(113, 222, 43, 0.2) 33.334%, rgba(113, 222, 43, 0.2) 50.001%, rgba(232, 251, 78, 0.2) 50.001%, rgba(232, 251, 78, 0.2) 66.668%, rgba(152, 231, 54, 0.2) 66.668%, rgba(152, 231, 54, 0.2) 83.335%, rgba(33, 202, 19, 0.2) 83.335%, rgba(33, 202, 19, 0.2) 100.002%), linear-gradient(90deg, rgb(238, 207, 232), rgb(127, 195, 255)); 
-}
-.main-content {
-  padding-top: 64px; /* height of app bar */
-  padding-left: 300px; /* width of navigation drawer */
-  height: calc(100vh - 64px); /* height of the viewport minus the app bar */
-  overflow-y: auto; /* enables scrolling for the main content */
 }
 a.router-link-active .v-list-item,
 .v-list-item--active {

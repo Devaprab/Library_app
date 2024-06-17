@@ -23,7 +23,11 @@
         <input type="text" placeholder="Issued Book Id" v-model="bookid">
         <button @click="issueBook" style="background-color: #4397a0;">Issue Book</button>
       </div>
-      <table class="ms-5 mt-5">
+      <v-skeleton-loader
+          v-if="loading"
+          type="table-tbody"
+        ></v-skeleton-loader>
+      <table v-else class="ms-5 mt-5">
         <thead>
           <tr>
           <th>SlNo.</th>
@@ -89,6 +93,7 @@ export default {
       color: '#E8F5E9',
       timeout: 3000,
       message: '',
+      loading: true,
     };
   },
   computed: {
@@ -140,6 +145,7 @@ try{
   const response = await axios.get(`${this.$store.getters.getUrl}/issues/allissuedbooks`)
   if(response.status >= 200 || response.status < 300){
     this.teachers = response.data
+    this.loading = false;
     console.log(response.data)
   }                                                                                             
 }

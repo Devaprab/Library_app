@@ -1,9 +1,19 @@
 <template>
   <!-- <v-main>
-    <v-container class="py-8 px-6" fluid> -->
+    <v-container fluid> -->
     <div class="d-flex flex-wrap justify-content-center">
-  <v-hover v-slot="{ isHovering, props }" v-for="bookList in bookLists" :key="bookList.id">
-    <v-card
+      <div v-if="loading" class="d-flex flex-wrap gap-4 justify-content-center">
+      <div v-for="n in 8" :key="n">
+       <v-skeleton-loader
+       
+          class="mx-auto border"
+          width="250"
+          type="image, article"
+        ></v-skeleton-loader> 
+      </div>
+    </div>
+  <v-hover v-else v-slot="{ isHovering, props }" v-for="bookList in bookLists" :key="bookList.id">
+    <v-card 
       class="mx-4 mb-3"
       color="grey-lighten-4"
       width="200"
@@ -41,6 +51,11 @@ import axios from 'axios';
 // v-for="bookList in bookLists" :key="bookList.id" 
 import { mapGetters } from 'vuex'
 export default {
+  data() {                                
+        return {
+            loading: true,
+        }
+    },
     computed: {
       ...mapGetters(['displayBooks']),
       bookLists() {
@@ -57,6 +72,7 @@ export default {
            if(response.status >= 200 || response.status < 300){
             console.log(response.data);
             this.$store.commit('setBooks',response.data);
+            this.loading = false;
            }
           }catch(error) {
             console.log(error.message);
